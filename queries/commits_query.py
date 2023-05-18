@@ -41,7 +41,7 @@ def commits_query(self, dbmc, repos):
     query_string = f"""
                     SELECT
                         distinct
-                        r.repo_id AS id,
+                        c.repo_id AS id,
                         -- r.repo_name,
                         c.cmt_commit_hash AS commits,
                         -- c.cmt_id AS file,
@@ -51,11 +51,8 @@ def commits_query(self, dbmc, repos):
                         c.cmt_author_date AS date,
                         c.cmt_author_timestamp AS author_timestamp,
                         c.cmt_committer_timestamp AS committer_timestamp
-
                     FROM
-                        repo r
-                    JOIN commits c
-                        ON r.repo_id = c.repo_id
+                        commits c
                     WHERE
                         c.repo_id in ({str(repos)[1:-1]})
                     """
